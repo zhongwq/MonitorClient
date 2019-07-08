@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "monitor.h"
+#include <QTcpSocket>
 
 namespace Ui {
 class MainWindow;
@@ -11,19 +11,28 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
+    
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-private slots:
-    void on_LoginButton_clicked();
 
-    void on_ExitButton_clicked();
+private slots:
+    void on_connect_btn_clicked();
+    void on_save_btn_clicked();
+    void disconnect_slot();
+    void read_data();
+    void update();
 
 private:
     Ui::MainWindow *ui;
-    Monitor *monitor;
+    QTcpSocket *socket;
+    int status;
+    QString save_pic_name;
+    bool save_picture_flag;
+    char *data;
+    int  len; //图像大小
+    int  len_rcv; //接收大小
 };
 
 #endif // MAINWINDOW_H
