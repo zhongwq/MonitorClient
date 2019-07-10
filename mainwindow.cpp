@@ -11,7 +11,7 @@
 #define H  480
 
 #define LEN  (W*H*3 + 54)
-#define P_LEN 1380
+#define P_LEN  1380
 
 #define QStringLiteral(str) QString::fromUtf8(str, sizeof(str) - 1)
 
@@ -55,7 +55,6 @@ void MainWindow::read_data() {
     int ret;
 
     ret = socket->read(data+len_rcv, P_LEN);
-    qDebug() << len_rcv;
     if (0 == strncmp("Error:", data+len_rcv, 6)) {
         QMessageBox::warning(this, QStringLiteral("错误"), data+len_rcv);
         status = 0;
@@ -80,7 +79,7 @@ void MainWindow::update() {
 
     if(save_picture_flag == 1) {
         save_picture_flag = 0;
-        QFile rgbfile(save_pic_name);
+        QFile rgbfile(save_pic_name + ".bmp");
 
         if(!rgbfile.open(QIODevice::ReadWrite | QIODevice::Text)) {
             QMessageBox msgbox(QMessageBox::Warning, "WARNING", "please enter file name");
